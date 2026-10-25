@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multimedia Website - PYTB-1026</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f9; color: #333; }
+        .item-card { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        img, video, audio { max-width: 100%; height: auto; margin-top: 10px; display: block; }
+    </style>
+</head>
+<body>
+    <h1>My Multimedia Gallery Project</h1>
+    <p>Welcome to my PYTB-1026 Django multimedia application assignment.</p>
+    <hr>
+
+    {% for item in items %}
+        <div class="item-card">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.description }}</p>
+            
+            {% if item.image_file %}
+                <img src="{{ item.image_file.url }}" alt="{{ item.title }}">
+            {% endif %}
+
+            {% if item.media_file %}
+                <!-- Generic file display / download link -->
+                <p><a href="{{ item.media_file.url }}" target="_blank">Download / View Attached File</a></p>
+            {% endif %}
+            
+            <small>Uploaded at: {{ item.uploaded_at }}</small>
+        </div>
+    {% empty %}
+        <p>No multimedia items uploaded yet. Log into the <a href="/admin/">Admin Panel</a> to add some!</p>
+    {% endfor %}
+</body>
+</html>
